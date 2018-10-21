@@ -195,6 +195,23 @@ class ContactsController extends Controller
        return view('form');
     }
 
+    public function api(Request $request){
+        $skip=(5*($request->page-1));
+        $response=Member::where('customer_name','like',"%{$request->search}%")->offset($skip)->limit(5)->get();
+        if($response->count()==0){
+            $data['results']=[];
+            $data['pagination']=['more'=>false];
+            return $data;
+        }
+        $newArray=[];
+        foreach ($response as $key=>$value){
+
+            $newArray[]=['id'=>$value->id,'text'=>$value->customer_name];
+        }
+        $data['results']=$newArray;
+        $data['pagination']=['more'=>true];
+        return $data;
+    }
 }
 
 

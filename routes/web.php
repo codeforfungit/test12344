@@ -18,7 +18,10 @@ use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 use Yajra\DataTables\Html\Builder;
 
+
+Route::get('api', 'ContactsController@api');
 Route::get('/', function () {
+    return view('welcome');
 echo "no role";
 
     /*$user=User::where('id',1)
